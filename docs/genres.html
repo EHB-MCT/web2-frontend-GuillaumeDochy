@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>course project</title>
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+    </style>
+</head>
+
+<body>
+    <div class="sideNav">
+        <h2>GDFR</h2>
+        <div class="links">
+            <a href="#" id="account">Account</a>
+            <a href="./home.html" onclick="window.location.reload()">Home</a>
+            <a href="./comparing.html">Comparing</a>
+            <a href="#" id="current">Genres</a>
+            <a href="#">You</a>
+        </div>
+    </div>
+    <div class="home">
+        <h1>LOOKing for a specific genre?</h1>
+        <div class="searchFormDiv">
+            <form id="sgForm">
+                <input type="text" id="fSearch" placeholder="search a genre">
+                <button type="submit" id="submitBtn">search</button>
+            </form>
+        </div>
+        <div id="genres">
+        </div>
+    </div>
+</body>
+
+</html>

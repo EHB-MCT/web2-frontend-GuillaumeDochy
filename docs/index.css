@@ -1,0 +1,189 @@
+* {
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bolder;
+}
+
+body {
+    margin: 0;
+    background-image: linear-gradient(to bottom right, #201E33, #161420);
+    height: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.home {
+    font-size: 20pt;
+    padding: 0;
+    margin-left: 250px;
+}
+
+.home h1 {
+    margin-left: 5%;
+    text-transform: uppercase;
+}
+
+.sideNav {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #151515;
+    overflow-x: hidden;
+}
+
+.sideNav h2 {
+    font-size: 25pt;
+    margin: 0;
+    margin-top: 6%;
+    margin-left: 30%;
+}
+
+.links {
+    margin-left: 15%;
+    display: flex;
+    flex-direction: column;
+}
+
+.links a {
+    text-align: right;
+    padding-bottom: 10%;
+    margin-top: 10%;
+    border-bottom: 1px white solid;
+    width: 70%;
+}
+
+a {
+    text-decoration: none;
+}
+
+#account {
+    margin-top: 20%;
+}
+
+#current {
+    color: #3f3974;
+    border-bottom: 2pt solid #3f3974;
+}
+
+.searchFormDiv {
+    margin-left: 10.5%;
+}
+
+#fSearch {
+    width: 20%;
+    border: none;
+    border-radius: 50px;
+    padding-left: 1%;
+    color: #72787d;
+}
+
+#submitBtn {
+    color: #72787d;
+    background-color: white;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+}
+
+#games {
+    margin-top: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+}
+
+.genreTitle {
+    padding: 0;
+    margin: 0;
+    margin-left: 10%;
+}
+
+#cards {
+    margin-top: 1%;
+    margin-bottom: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#genres {
+    padding: 0;
+    margin: 0;
+    margin-top: 1%;
+    margin-bottom: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#cards2 {
+    margin-top: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cards:hover {
+    transform: scale(105%);
+}
+
+.cards {
+    transition: transform 0.5s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 25%;
+    background-image: linear-gradient(to bottom right, #161420, #201E33);
+    box-shadow: rgba(14, 14, 14, 0.432) 10px 10px;
+    border-radius: 15px;
+    margin: 0.5em;
+}
+
+.cards {
+    text-align: center;
+}
+
+.cards div {
+    margin-right: 1em;
+}
+
+.gameName {
+    width: 100%;
+}
+
+img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.cards h4 {
+    font-size: 15pt;
+    text-align: left;
+    margin-bottom: 0;
+    margin-left: 0.5em;
+}
+
+.cards h3 {
+    font-size: 15pt;
+}
+
+.cards p {
+    font-size: 10pt;
+    text-align: left;
+    font-weight: lighter;
+    margin-top: 0;
+    margin-left: 1em;
+}
+
+.searchCards {
+    margin-left: 5%;
+}
+
+#gameSpecific {
+    margin: 5%;
+}

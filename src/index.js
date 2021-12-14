@@ -25,7 +25,7 @@ window.onload = function () {
                     });
 
                     htmlString += `
-                    <div class="cards clicky">
+                    <a href="./game.html" class="cards clicky" id="${e.id}">
                         <img src="${e.background_image}">
                         <h3 class="gameName">${e.name}</h3>
                         <div>
@@ -36,7 +36,7 @@ window.onload = function () {
                         <h4>Ratings:</h4>
                         <p>${e.rating}/${e.rating_top}</p>
                         </div>
-                    </div>
+                    </a>
                     `;
                     document.getElementById('cards').innerHTML = htmlString;
                 })
@@ -63,7 +63,7 @@ window.onload = function () {
                     });
 
                     htmlString += `
-                    <div class="cards clicky">
+                    <a href="./game.html" class="cards clicky" id="${e.id}">
                         <img src="${e.background_image}">
                         <h3 class="gameName">${e.name}</h3>
                         <div>
@@ -74,7 +74,7 @@ window.onload = function () {
                         <h4>Ratings:</h4>
                         <p>${e.rating}/${e.rating_top}</p>
                         </div>
-                    </div>
+                    </a>
                     `;
                     document.getElementById('cards2').innerHTML = htmlString;
                 })
@@ -93,12 +93,71 @@ window.onload = function () {
         console.log(genres)
 
         games.forEach(clik => {
-            clik.addEventListener("click", function (e) {
+            clik.addEventListener("click", async function (e) {
                 e.preventDefault()
                 console.log('clicked')
+
+                console.log(clik.id)
+
+                let id = clik.id
+
+                sessionStorage.setItem("id", id)
+
                 window.location.href = "./game.html"
+
+                getGame()
             })
         })
+
+        async function getGame() {
+            setTimeout(500)
+
+            const container = document.getElementById("gameSpecific")
+            console.log(container)
+
+            let _id = sessionStorage.getItem("id")
+
+            console.log(_id)
+
+            let response = await fetch(`https://api.rawg.io/api/games/${_id}?key=879cb43fa6024d69b614737f14e041f6`);
+
+            if (response.ok) { // HTTP-status = 200-299
+                let data = []
+                data = await response.json();
+
+                console.log(data)
+
+                let bg = data.background_image
+                let name = data.name
+                let release = data.released
+                let rating = data.rating
+                let ratingTop = data.rating_top
+
+                // sessionStorage.setItem("bg", bg)
+                // sessionStorage.setItem("name", name)
+                // sessionStorage.setItem("release", release)
+                // sessionStorage.setItem("rating", rating)
+                // sessionStorage.setItem("topRating", ratingTop)
+
+                let htmlString = `
+                            <img src="${bg}">
+                            <h3 class="gameName">${name}</h3>
+                            <div>
+                            <h4>Release date:</h4>
+                            <p class="release">${release}</p>
+                            </div>
+                            <div>
+                            <h4>Ratings:</h4>
+                            <p>${rating}/${ratingTop}</p>
+                            </div>
+                        `
+                container.innerHTML = htmlString
+            } else {
+                alert("HTTP-Error: " + response.status);
+            }
+        }
+
+        getGame()
 
         genres.forEach(clik => {
             clik.addEventListener("click", function (e) {
@@ -109,7 +168,7 @@ window.onload = function () {
         })
     }
 
-    setTimeout(clicked, 2000)
+    setTimeout(clicked, 1000)
 
     const searchGames = document.getElementById("sgForm")
     console.log(searchGames)
@@ -126,7 +185,7 @@ window.onload = function () {
 
             console.log(actualSearch)
 
-            let response = await fetch(`https://api.rawg.io/api/games/${actualSearch}/game-series?key=879cb43fa6024d69b614737f14e041f6`);
+            let response = await fetch(`https://api.rawg.io/api/games?search=${actualSearch}&key=879cb43fa6024d69b614737f14e041f6`);
 
             if (response.ok) { // HTTP-status = 200-299
                 let data = await response.json();
@@ -146,7 +205,7 @@ window.onload = function () {
                     });
 
                     htmlString += `
-                    <div class="cards clicky searchCards">
+                    <a href="./game.html" class="cards clicky searchCards" id="${e.id}">
                         <img src="${e.background_image}">
                         <h3 class="gameName">${e.name}</h3>
                         <div>
@@ -157,7 +216,7 @@ window.onload = function () {
                         <h4>Ratings:</h4>
                         <p>${e.rating}/${e.rating_top}</p>
                         </div>
-                    </div>
+                    </a>
                     `
                     document.getElementById('games').innerHTML = htmlString
                 })
@@ -182,7 +241,7 @@ window.onload = function () {
 
             fullGenresList.forEach(e => {
                 htmlString += `
-                <div class="cards genres clicky searchCards">
+                <div class="cards genres clicky searchCards" id="${e.id}">
                     <img src="${e.image_background}">
                     <h3 class="gameName">${e.name}</h3>
                 </div>
@@ -197,6 +256,4 @@ window.onload = function () {
     homeSearch()
 
     setTimeout(genresCall, 1000)
-
-    genresCall()
 }
