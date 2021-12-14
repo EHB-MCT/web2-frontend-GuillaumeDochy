@@ -3,7 +3,7 @@ import _, {
 } from 'lodash';
 
 window.onload = function () {
-    function call() {
+    function callHomePage() {
         fetch('https://api.rawg.io/api/games?genres=shooter&page_size=3&key=879cb43fa6024d69b614737f14e041f6')
             .then(response => {
                 return response.json()
@@ -26,7 +26,7 @@ window.onload = function () {
 
                     htmlString += `
                     <a href="./game.html" class="cards clicky" id="${e.id}">
-                        <img src="${e.background_image}">
+                        <img src="${e.background_image}" >
                         <h3 class="gameName">${e.name}</h3>
                         <div>
                         <h4>Release date:</h4>
@@ -80,7 +80,8 @@ window.onload = function () {
                 })
             })
     }
-    call()
+
+    callHomePage()
 
     function clicked() {
         const gameClicked = document.getElementsByClassName("cards")
@@ -133,26 +134,66 @@ window.onload = function () {
                 let rating = data.rating
                 let ratingTop = data.rating_top
 
-                // sessionStorage.setItem("bg", bg)
-                // sessionStorage.setItem("name", name)
-                // sessionStorage.setItem("release", release)
-                // sessionStorage.setItem("rating", rating)
-                // sessionStorage.setItem("topRating", ratingTop)
+                let platform = [];
+
+                data.platforms.forEach(e => {
+                    platform.push(` ${e.platform.name}`);
+                });
+
+                let genre = [];
+
+                data.genres.forEach(e => {
+                    platform.push(` ${e.name}`);
+                });
+
+                let publisher = [];
+
+                data.publishers.forEach(e => {
+                    publisher.push(` ${e.name}`);
+                });
+
+                let developer = [];
+
+                data.developers.forEach(e => {
+                    developer.push(` ${e.name}`);
+                });
+
+                console.log(platform)
+                console.log(publisher)
 
                 let htmlString = `
                 <div class="gameSpecific">
                     <img src="${bg}">
                     <h3 class="gameName">${name}</h3>
                 </div>
-                <div>
+                <div class="gameSpecificInfo">
+                <div class="specificDiv">
+                <h4>Platforms:</h4>
+                <p>${platform}</p>
+                </div>
+                <div class="specificDiv">
+                <h4>Publisher(s):</h4>
+                <p>${publisher}</p>
+                </div>
+                <div class="specificDiv">
+                <h4>Genre(s):</h4>
+                <p>${genre}</p>
+                </div>
+                <div class="specificDiv">
+                <h4>Developer(s):</h4>
+                <p>${developer}</p>
+                </div>
+                <div class="specificDiv">
                 <h4>Release date:</h4>
                 <p class="release">${release}</p>
                 </div>
-                <div>
+                <div class="specificDiv">
                 <h4>Ratings:</h4>
                 <p>${rating}/${ratingTop}</p>
                 </div>
-                        `
+                </div>
+                `
+                // container.insertAdjacentHTML('beforeend', htmlString)
                 container.innerHTML = htmlString
             } else {
                 alert("HTTP-Error: " + response.status);

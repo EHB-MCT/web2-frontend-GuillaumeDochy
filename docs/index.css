@@ -1,4 +1,5 @@
 * {
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:display=swap');
     color: white;
     font-family: 'Poppins', sans-serif;
     font-weight: bolder;
@@ -186,4 +187,48 @@ img {
 
 #gameSpecific {
     margin: 5%;
+    width: cover;
+}
+
+.gameSpecific {
+    position: relative;
+}
+
+.gameSpecific img {
+    filter: brightness(0.8);
+    width: 70%;
+}
+
+.gameSpecific h3 {
+    position: absolute;
+    width: 55%;
+    left: 50%;
+    top: 40%;
+    font-size: 45pt;
+}
+
+.gameSpecificInfo {
+    position: relative;
+    margin-top: 10%;
+    font-size: 12pt;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: cover;
+}
+
+.specificDiv {
+    display: flex;
+    flex-direction: column;
+    margin: 2%;
+    width: 20%;
+}
+
+.specificDiv h4 {
+    margin: 0;
+}
+
+.specificDiv p {
+    font-weight: bold;
+    margin: 0;
 }
