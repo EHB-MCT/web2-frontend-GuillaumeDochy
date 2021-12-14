@@ -140,16 +140,18 @@ window.onload = function () {
                 // sessionStorage.setItem("topRating", ratingTop)
 
                 let htmlString = `
-                            <img src="${bg}">
-                            <h3 class="gameName">${name}</h3>
-                            <div>
-                            <h4>Release date:</h4>
-                            <p class="release">${release}</p>
-                            </div>
-                            <div>
-                            <h4>Ratings:</h4>
-                            <p>${rating}/${ratingTop}</p>
-                            </div>
+                <div class="gameSpecific">
+                    <img src="${bg}">
+                    <h3 class="gameName">${name}</h3>
+                </div>
+                <div>
+                <h4>Release date:</h4>
+                <p class="release">${release}</p>
+                </div>
+                <div>
+                <h4>Ratings:</h4>
+                <p>${rating}/${ratingTop}</p>
+                </div>
                         `
                 container.innerHTML = htmlString
             } else {
