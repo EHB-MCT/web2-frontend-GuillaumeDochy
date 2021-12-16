@@ -140,7 +140,7 @@ a {
     justify-content: center;
     width: 25%;
     background-image: linear-gradient(to bottom right, #161420, #201E33);
-    box-shadow: rgba(14, 14, 14, 0.432) 10px 10px;
+    box-shadow: rgba(14, 14, 14, 0.075) 7px 10px;
     border-radius: 15px;
     margin: 0.5em;
 }
@@ -188,10 +188,16 @@ img {
 #gameSpecific {
     margin: 5%;
     width: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-self: center;
+    justify-items: center;
 }
 
 .gameSpecific {
     position: relative;
+    height: 60vh;
 }
 
 .gameSpecific img {
@@ -209,7 +215,7 @@ img {
 
 .gameSpecificInfo {
     position: relative;
-    margin-top: 10%;
+    margin-top: 15%;
     font-size: 12pt;
     display: flex;
     flex-wrap: wrap;
@@ -231,4 +237,37 @@ img {
 .specificDiv p {
     font-weight: bold;
     margin: 0;
+}
+
+#screens {
+    margin: 2%;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    flex-direction: row;
+}
+
+#screens img {
+    margin: 2%;
+    width: 45%;
+    transition: transform 0.5s;
+}
+
+#screens img:hover {
+    transform: scale(120%);
+}
+
+#rest {
+    position: relative;
+    margin-top: 5%;
+}
+
+#rest h4 {
+    margin: 0;
+}
+
+#rest p {
+    font-weight: normal;
+    margin: 0;
+    margin-top: 1%;
 }
