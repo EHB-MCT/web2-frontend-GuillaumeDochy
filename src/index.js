@@ -1,5 +1,6 @@
 import _, {
-    functions
+    functions,
+    toInteger
 } from 'lodash';
 
 window.onload = function () {
@@ -249,6 +250,7 @@ window.onload = function () {
                 })
 
                 let htmlString = `
+                <a id="goBack" href="javascript:history.back()">Go back</a>
                 <div class="gameSpecific">
                     <img src="${bg}">
                     <h3 class="gameName">${name}</h3>
@@ -437,6 +439,7 @@ window.onload = function () {
                         })
 
                         let htmlString = `
+                        <a id="goBackGenre" href="javascript:history.back()">Go back</a>
                         <div class="gameSpecific">
                             <img src="${bg}">
                             <h3 class="gameName">${name}</h3>
@@ -547,7 +550,7 @@ window.onload = function () {
                     });
 
                     htmlString += `
-                    <div class="cards" id="${e.id}">
+                    <div class="cards comparing compare" id="${e.id}">
                         <img src="${e.background_image}">
                         <h3 class="gameName">${e.name}</h3>
                         <div>
@@ -565,12 +568,135 @@ window.onload = function () {
             } else {
                 alert("HTTP-Error: " + response.status);
             }
+
+            setTimeout(1000)
+
+            const compareClicked1 = document.getElementsByClassName("compare")
+            let compareGame1 = [].slice.call(compareClicked1)
+
+            compareGame1.forEach(clik => {
+                clik.addEventListener("click", async function (e) {
+                    setTimeout(500)
+                    e.preventDefault()
+
+                    let compareId1 = clik.id
+
+                    sessionStorage.setItem("compareId1", compareId1)
+
+                    getGameCompare1()
+                })
+            })
+
+            async function getGameCompare1() {
+                setTimeout(500)
+
+                const container = document.getElementById("result1")
+
+                let compareId1 = sessionStorage.getItem("compareId1")
+
+                let response = await fetch(`https://api.rawg.io/api/games/${compareId1}?key=879cb43fa6024d69b614737f14e041f6`);
+
+                if (response.ok) { // HTTP-status = 200-299
+                    let data = []
+                    data = await response.json()
+
+                    let bg = data.background_image
+                    let name = data.name
+                    let release = data.released
+                    let rating = data.metacritic
+                    let slug = data.slug
+
+                    let platform = [];
+
+                    data.platforms.forEach(e => {
+                        platform.push(` ${e.platform.name}`)
+                    })
+
+                    let genre = []
+                    let genreArray = data.genres
+
+                    genreArray.forEach(e => {
+                        genre.push(` ${e.name}`)
+                    })
+
+                    let publisher = [];
+
+                    data.publishers.forEach(e => {
+                        publisher.push(` ${e.name}`)
+                    })
+
+                    let developer = []
+
+                    data.developers.forEach(e => {
+                        developer.push(` ${e.name}`)
+                    })
+
+                    let htmlString = `
+                <div class="compared comparingGames1">
+                    <div id="comparedGame1Intro">
+                    <img id="comparedIntroImg1" src="${bg}">
+                    <div id="game1IntroComparing">
+                    <h4 id="comparedGame1Title">${name}</h4>
+                    <h4 id="ratingCompare">${rating}</h4>
+                    </div>
+                    </div>
+                    <div id="comparedGame1Info">
+                    <h5 id="comparedGame1Release">Release:</h5>
+                    <h6>${release}</h6>
+                    <h5 id="platforms">Platforms:</h5>
+                    <h6>${platform}</h6>
+                    <h5 id="genresCompare">Genres:</h5>
+                    <h6>${genre}</h6>
+                    <h5 id="devs">Developers:</h5>
+                    <h6>${developer}</h6>
+                    </div>
+                    <div>
+                    <h5>Screenshots:</h5>
+                    <div id="comparedGame1Screens">
+                    </div>
+                    </div
+                </div>
+                `
+                    // container.insertAdjacentHTML('beforeend', htmlString)
+                    container.innerHTML = htmlString
+
+                    const ratingCompared = document.getElementById("ratingCompare").innerHTML
+
+                    console.log(ratingCompared)
+
+                    if (ratingCompared > 80) {
+                        document.getElementById("ratingCompare").style.color = "green"
+                    } else if (ratingCompared < 80) {
+                        document.getElementById("ratingCompare").style.color = "orange"
+                    } else if (ratingCompared < 50) {
+                        document.getElementById("ratingCompare").style.color = "red"
+                    }
+
+                    let response2 = await fetch(`https://api.rawg.io/api/games/${slug}/screenshots?key=879cb43fa6024d69b614737f14e041f6`);
+
+                    let data2 = []
+                    data2 = await response2.json();
+
+                    let htmlString2 = ""
+
+                    data2.results.forEach(e => {
+                        htmlString2 += `
+                        <img src="${e.image}">`
+                    })
+
+                    const container2 = document.getElementById("comparedGame1Screens")
+                    container2.innerHTML = htmlString2
+                } else {
+                    alert("HTTP-Error: " + response.status);
+                }
+            }
+
+            document.getElementById('homeComparing').style.height = "max-content"
         })
         searchGame2.addEventListener("submit", async function (e) {
-
             e.preventDefault()
 
-            console.log("test");
+            console.log("test2");
 
             const searchQuery2 = document.getElementById('fSearch2').value
 
@@ -598,7 +724,7 @@ window.onload = function () {
                     });
 
                     htmlString += `
-                    <div class="cards " id="${e.id}">
+                    <div class="cards comparing compare2" id="${e.id}">
                         <img src="${e.background_image}">
                         <h3 class="gameName">${e.name}</h3>
                         <div>
@@ -616,6 +742,129 @@ window.onload = function () {
             } else {
                 alert("HTTP-Error: " + response.status);
             }
+
+            setTimeout(1000)
+
+            const compareClicked2 = document.getElementsByClassName("compare2")
+            let compareGame2 = [].slice.call(compareClicked2)
+
+            compareGame2.forEach(clik => {
+                clik.addEventListener("click", async function (e) {
+                    setTimeout(500)
+                    e.preventDefault()
+
+                    let compareId2 = clik.id
+
+                    sessionStorage.setItem("compareId2", compareId2)
+
+                    getGameCompare1()
+                })
+            })
+
+            async function getGameCompare1() {
+                setTimeout(500)
+
+                const container = document.getElementById("result2")
+
+                let compareId2 = sessionStorage.getItem("compareId2")
+
+                let response = await fetch(`https://api.rawg.io/api/games/${compareId2}?key=879cb43fa6024d69b614737f14e041f6`);
+
+                if (response.ok) { // HTTP-status = 200-299
+                    let data = []
+                    data = await response.json()
+
+                    let bg = data.background_image
+                    let name = data.name
+                    let release = data.released
+                    let rating = data.metacritic
+                    let slug = data.slug
+
+                    let platform = [];
+
+                    data.platforms.forEach(e => {
+                        platform.push(` ${e.platform.name}`)
+                    })
+
+                    let genre = []
+                    let genreArray = data.genres
+
+                    genreArray.forEach(e => {
+                        genre.push(` ${e.name}`)
+                    })
+
+                    let publisher = [];
+
+                    data.publishers.forEach(e => {
+                        publisher.push(` ${e.name}`)
+                    })
+
+                    let developer = []
+
+                    data.developers.forEach(e => {
+                        developer.push(` ${e.name}`)
+                    })
+
+                    let htmlString = `
+                    <div class="compared comparingGames2">
+                        <div id="comparedGame2Intro">
+                        <img src="${bg}">
+                        <div id="game2IntroComparing">
+                        <h4 id="comparedGame2Title">${name}</h4>
+                        <h4 id="ratingCompare2">${rating}</h4>
+                        </div>
+                        </div>
+                        <div id="comparedGame1Info">
+                        <h5 id="comparedGame2Release">Release:</h5>
+                        <h6>${release}</h6>
+                        <h5 id="platforms">Platforms:</h5>
+                        <h6>${platform}</h6>
+                        <h5 id="genresCompare">Genres:</h5>
+                        <h6>${genre}</h6>
+                        <h5 id="devs">Developers:</h5>
+                        <h6>${developer}</h6>
+                        </div>
+                        <div>
+                        <h5>Screenshots:</h5>
+                        <div id="comparedGame2Screens">
+                        </div>
+                        </div
+                `
+                    // container.insertAdjacentHTML('beforeend', htmlString)
+                    container.innerHTML = htmlString
+
+                    const ratingCompared = document.getElementById("ratingCompare2").innerHTML
+
+                    console.log(ratingCompared)
+
+                    if (ratingCompared > 80) {
+                        document.getElementById("ratingCompare2").style.color = "green"
+                    } else if (ratingCompared < 80) {
+                        document.getElementById("ratingCompare2").style.color = "orange"
+                    } else if (ratingCompared < 50) {
+                        document.getElementById("ratingCompare2").style.color = "red"
+                    }
+
+                    let response2 = await fetch(`https://api.rawg.io/api/games/${slug}/screenshots?key=879cb43fa6024d69b614737f14e041f6`);
+
+                    let data2 = []
+                    data2 = await response2.json();
+
+                    let htmlString2 = ""
+
+                    data2.results.forEach(e => {
+                        htmlString2 += `
+                        <img src="${e.image}">`
+                    })
+
+                    const container2 = document.getElementById("comparedGame2Screens")
+                    container2.innerHTML = htmlString2
+                } else {
+                    alert("HTTP-Error: " + response.status);
+                }
+            }
+
+            document.getElementById('homeComparing').style.height = "max-content"
         })
     }
 
