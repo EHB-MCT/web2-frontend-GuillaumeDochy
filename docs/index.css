@@ -566,3 +566,35 @@ img {
 .links {
     margin-top: 20%;
 }
+
+.fav {
+    cursor: pointer;
+    width: max-content;
+}
+
+.fav:active {
+    transform: scale(120%);
+}
+
+#title {
+    font-size: 35pt;
+    margin-left: 5%;
+    text-transform: uppercase;
+}
+
+#recGames {
+    padding: 0;
+    margin: 0;
+    margin-top: 1%;
+    margin-bottom: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#invisibleBtn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 228, 196, 0);
+    cursor: pointer;
+}

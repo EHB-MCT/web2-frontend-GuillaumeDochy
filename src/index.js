@@ -4,6 +4,61 @@ import _, {
 } from 'lodash';
 
 window.onload = function () {
+    async function recommended() {
+        setTimeout(500)
+
+        let response = await fetch('https://course-project-guillaumedochy.herokuapp.com/games', {
+            method: 'GET'
+        })
+
+        if (response.ok) {
+            let data = await response.json()
+            console.log(data)
+
+            let htmlString = ''
+
+            data.forEach(e => {
+                htmlString += `
+                <div class="cards clicky genreGame" id="${e.id}">
+                        <img src="${e.background_image}">
+                        <h3 class="gameName">${e.name}</h3>
+                        <div>
+                        <h4>Release date:</h4>
+                        <p class="release">${e.release}</p>
+                        </div>
+                    </div>
+                    `
+            })
+
+            const recGames = document.getElementById('recGames')
+            recGames.innerHTML = htmlString
+
+        } else {
+            alert("HTTP-Error: " + response.status);
+        }
+
+        const invisiBtn = document.getElementById('invisibleBtn')
+
+        invisiBtn.addEventListener("click", async (e) => {
+            e.preventDefault()
+
+            let response = await fetch('https://course-project-guillaumedochy.herokuapp.com/deletegames', {
+                method: 'DELETE'
+            })
+
+            if (response.ok) {
+                let data = response.json()
+                console.log(data)
+                window.location.reload()
+                setTimeout(alert('good job! now everything is deleted'), 500)
+            } else {
+                alert("HTTP-Error: " + response.status);
+            }
+        })
+    }
+
+    recommended()
+
     function callHomePage() {
         fetch('https://api.rawg.io/api/games?genres=shooter&page_size=3&key=879cb43fa6024d69b614737f14e041f6')
             .then(response => {
@@ -224,6 +279,8 @@ window.onload = function () {
                 let slug = data.slug
                 let description = data.description
 
+                console.log(bg)
+
                 let platform = [];
 
                 data.platforms.forEach(e => {
@@ -280,6 +337,10 @@ window.onload = function () {
                 <h4>Ratings:</h4>
                 <p>${rating}</p>
                 </div>
+                <div class="specificDiv">
+                <h4>Do you like it? Click this button:</h4>
+                <span id="fav" class="material-icons fav">favorite</span>
+                </div>
                 <div id="rest">
                 <div id="description">
                 <h4>Description:</h4>
@@ -307,6 +368,35 @@ window.onload = function () {
 
                 const container2 = document.getElementById("screens")
                 container2.innerHTML = htmlString2
+
+                const likeBtn = document.getElementById('fav')
+
+                console.log(likeBtn)
+
+                likeBtn.addEventListener('click', async e => {
+                    e.preventDefault()
+
+                    let response3 = await fetch(`https://course-project-guillaumedochy.herokuapp.com/games`, {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: name,
+                            background_image: bg,
+                            release: release,
+                            slug: slug,
+                            description: description
+                        })
+                    })
+
+                    let data3 = []
+                    data3 = await response3.json();
+
+                    if (response3.ok) {
+                        alert('thank you!')
+                    }
+                })
             } else {
                 alert("HTTP-Error: " + response.status);
             }
@@ -469,6 +559,10 @@ window.onload = function () {
                         <h4>Ratings:</h4>
                         <p>${rating}</p>
                         </div>
+                        <div class="specificDiv">
+                        <h4>Do you like it? Click this button:</h4>
+                        <span id="fav" class="material-icons fav">favorite</span>
+                        </div>
                         <div id="rest">
                         <div id="description">
                         <h4>Description:</h4>
@@ -495,6 +589,21 @@ window.onload = function () {
 
                         const container2 = document.getElementById("screens")
                         container2.innerHTML = htmlString2
+
+                        let response3 = await fetch(`https://course-project-guillaumedochy.herokuapp.com/games`, {
+                            method: "POST",
+                            body: JSON.stringify({
+                                name: name,
+                                background_image: bg,
+                                release: release,
+                                slug: slug,
+                                description: description
+                            })
+                        })
+
+                        let data3 = []
+                        data3 = await response3.json();
+
                     } else {
                         alert("HTTP-Error: " + response.status);
                     }
@@ -920,4 +1029,6 @@ window.onload = function () {
     }
 
     homeSearch()
+
+
 }
